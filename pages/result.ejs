@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<title>
+			<%= query %> - Whois</title>
+	     <meta name="description"
+          content="<%= locals.hostname %> provides the most complete domain name whois information query, IP address information query, IP attribution query, domain name owner information query, domain name expiration time query, info query">
+        <link rel="canonical" href="index.html">
+        <meta name="keywords" content="Whois, Whois"">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="keywords" content="Whois Search">
+		<meta name="description" content="Whois Search">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="/style.css">
+		<script src="https://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript">
+			function whois() {
+				var domain = document.getElementById('domain').value;
+				if(!domain) {
+					alert('FAILED: Input cannot be EMPTY.');
+					document.getElementById("domain").focus();
+				} 
+				else if (domain.substr(0, 1) == "." || domain.substr(-1) == ".") {
+			        alert('FAILED: Input format ERROR.');
+			        document.getElementById("domain").focus();
+			    }
+				else {
+			        domain = domain.replace("http://","");
+			        domain = domain.replace("https://","");
+			        domain = domain.replace(/\/.*/,"");
+					window.location = '/whois/' + domain;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="main">
+		    <h1><a href="/"><%= locals.hostname %></a></h1>
+			<form action="/" id="form" class="form">
+				<div id="bg">
+					<div id="in">
+						<div class="search">
+							<input type="text" name="domain" id="domain" autocomplete="on" placeholder="TYPE, ENTER, AND CHECK.(e.g. google.com)" value="<%= query %>">
+							<button id="submit" onclick="whois(); return false;" value="whois">WHOIS</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			<pre><%= result %></pre>
+				
+		</div>
+		<div class="footer">
+			<br />
+			<center>Copyright © 2022 <a href="//caliph.my.id">Caliph</a></center>	</div>
+		<div style="display:none">
+
+			<script>
+				document.getElementById("domain").focus();
+				if($('pre').length>0) {
+				document.getElementById("form").style.marginTop = "0";
+				} else {
+				document.getElementById("form").style.marginTop = "25%";
+				}
+			</script>
+
+		</div>
+		<br />
+	</body>
+</html>

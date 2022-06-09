@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "ejs": "github:caliphdev/ejs",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "util": "^0.12.4",
+    "whois": "^2.13.9"
+  },
+  "name": "whois-lookup",
+  "version": "0.1.0",
+  "description": "Web Whois Lookup with ExpressJS and Ejs",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caliphdev/whois-lookup.git"
+  },
+  "author": "caliphdev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caliphdev/whois-lookup/issues"
+  },
+  "homepage": "https://github.com/caliphdev/whois-lookup#readme"
+}
