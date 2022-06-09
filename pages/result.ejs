@@ -17,19 +17,37 @@
  <script src="https://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
  <script type="text/javascript">
-  function whois() {
+  async function whois() {
    var domain = document.getElementById('domain').value;
+   const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+});
+
    if (!domain) {
-    alert('FAILED: Input cannot be EMPTY.');
+Toast.fire({
+  icon: 'error',
+  title: 'Input cannot be Empty.'
+});
     document.getElementById("domain").focus();
    } else if (domain.substr(0, 1) == "." || domain.substr(-1) == ".") {
-    alert('FAILED: Input format ERROR.');
+    Toast.fire({
+  icon: 'error',
+  title: 'Input format Invalid..'
+});
     document.getElementById("domain").focus();
    } else {
     domain = domain.replace("http://", "");
     domain = domain.replace("https://", "");
     domain = domain.replace(/\/.*/, "");
-    window.location = '/whois/' + domain;
+    window.location = "/whois/" + domain;
    }
   }
  </script>
