@@ -1,71 +1,91 @@
 <html>
-	<head>
-		<title>
-			Whois - <%= locals.hostname %></title>
-		<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACB0lEQVQ4T6WTPWhUQRDH/7P3ATYix3lv3vMKQWwkKhIbMRLTCYrYKEgUtRALsTWCRWIQRLBMlUYhhR8hUYyK2ChYCH4Ugoh2iu925x3XiJ08dmSPe8d5uUaccnfnN7Pz/w/hP4OG85MkqXvvZ1R1FxHtBrABwA8Ar4wxc9bazmDOX4A4jg+o6iMATwGslUqlN61WK2VmBfAOwDYiOuace11A+gBmPgvgNoATIrI8WIWZX4YOAHwG8ADAORG5E950Acy8FcAnIpp0zn0Y/hYzHwSwICJjzHy8V2hMRL4VgJuquinLsguDybVabWO1Wv0JwAJYFJFr4T6KoiUisiIyUwAeE9Gyc25pqPVQeVZEpgbPkySZ8N5fEZEjBaAFYH9oiZnvhSLGmBve+9+jAMy8GcBHEUm6gCiKUiLaA+AigJ0AAuQygL2jhlqv1+NyufxeRLYUgFVVvWWMOQ/gu4jMhTYBfAm6N5vNWp7nK92pE9313v8iopMicrQAXCeiqwBW8jy/1Ol03NAsgsSTqroK4DARHQJwf3CIXRmNMePW2q8jZHwG4G3orNFo7DPGPPHe72i329koI02JSDBNN5h5VlW3Z1l2Ko7jcVV9boyZtta+6BupeNyz8lrQvGfn4LwzRBRky4homohOO+cerrNycTBimaJwp6qLlUplPk3TIHk/1m3jv273H5JH5hEvO+ZNAAAAAElFTkSuQmCC">
-		<meta name="description"
-          content="<%= locals.hostname %> provides the most complete domain name whois information query, IP address information query, IP attribution query, domain name owner information query, domain name expiration time query, info query">
-        <link rel="canonical" href="https://<%= locals.hostname %>">
-        <meta name="keywords" content="Whois, whois domain">
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<meta name="keywords" content="Whois Search">
-		<meta name="description" content="Whois Search">
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="Cache-Control" content="no-siteapp" />
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<script src="https://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
-		<script type="text/javascript">
-			function whois() {
-				var domain = document.getElementById('domain').value;
-				if(!domain) {
-					alert('FAILED: Input cannot be EMPTY.');
-					document.getElementById("domain").focus();
-				} 
-				else if (domain.substr(0, 1) == "." || domain.substr(-1) == ".") {
-			        alert('FAILED: Input format ERROR.');
-			        document.getElementById("domain").focus();
-			    }
-				else {
-			        domain = domain.replace("http://","");
-			        domain = domain.replace("https://","");
-			        domain = domain.replace(/\/.*/,"");
-					window.location = "/whois/" + domain;
-				}
-			}
-		</script>
-	</head>
-	<body>
-		<div class="main">
-		    <h1><a href="index.html"><%= locals.hostname %></a></h1>
-			<form action="index.html" id="form" class="form">
-				<div id="bg">
-					<div id="in">
-						<div class="search">
-							<input type="text" name="domain" id="domain" autocomplete="on" placeholder="TYPE, ENTER, AND CHECK.(e.g. google.com)" value="" required>
-							<button id="submit" onclick="whois(); return false;" value="whois">WHOIS</button>
-						</div>
-					</div>
-				</div>
-			</form>
-						<h2>instructions for use</h2>Enter the domain name or IP address directly and press Enter to ask for whois information<br>		</div>
-		<div class="footer">
-			<br />
-			<center>Copyright © 2022 <a href="//caliph.my.id">Caliph</a> | <a href="//github.com/caliphdev/whois-lookup">Source Code</a></center>
-		</div>
-		<div style="display:none">
 
-			<script>
-				document.getElementById("domain").focus();
-				if($('pre').length>0) {
-				document.getElementById("form").style.marginTop = "0";
-				} else {
-				document.getElementById("form").style.marginTop = "25%";
-				}
-			</script>
+<head>
 
-		</div>
-		<br />
-	</body>
+ <title>
+  Whois - <%= locals.hostname %></title>
+ <link rel="shortcut icon" href="https://caliph.my.id/public/storage/ddae1b8b4e66aaaeb49a13197d9c9a49.png">
+ <meta name="description"
+ content="<%= locals.hostname %> provides the most complete domain name whois information query, IP address information query, IP attribution query, domain name owner information query, domain name expiration time query, info query">
+ <link rel="canonical" href="https://<%= locals.hostname %>">
+ <meta name="keywords" content="Whois, whois domain">
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+ <meta name="keywords" content="Whois Search">
+ <meta name="description" content="Whois Search">
+ <meta name="renderer" content="webkit">
+ <meta http-equiv="Cache-Control" content="no-siteapp" />
+ <link rel="stylesheet" type="text/css" href="style.css">
+ <script src="https://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+ <script type="text/javascript">
+  async function whois() {
+   var domain = document.getElementById('domain').value;
+   const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+});
+
+   if (!domain) {
+Toast.fire({
+  icon: 'error',
+  title: 'Input cannot be Empty.'
+});
+    document.getElementById("domain").focus();
+   } else if (domain.substr(0, 1) == "." || domain.substr(-1) == ".") {
+    Toast.fire({
+  icon: 'error',
+  title: 'Input format Invalid..'
+});
+    document.getElementById("domain").focus();
+   } else {
+    domain = domain.replace("http://", "");
+    domain = domain.replace("https://", "");
+    domain = domain.replace(/\/.*/, "");
+    window.location = "/whois/" + domain;
+   }
+  }
+ </script>
+</head>
+<body>
+ <div class="main">
+  <h1><a href="index.html"><%= locals.hostname %></a></h1>
+  <form action="index.html" id="form" class="form">
+   <div id="bg">
+    <div id="in">
+     <div class="search">
+      <input type="text" name="domain" id="domain" autocomplete="on" placeholder="TYPE, ENTER, AND CHECK.(e.g. google.com)" value="" required>
+      <button id="submit" onclick="whois(); return false;" value="whois">WHOIS</button>
+     </div>
+    </div>
+   </div>
+  </form>
+  <h2>instructions for use</h2>Enter the domain name or IP address directly and press Enter to ask for whois information<br>
+ </div>
+ <div class="footer">
+  <br />
+  <center>Copyright © 2022 <a href="//caliph.my.id">Caliph</a> | <a href="//github.com/caliphdev/whois-lookup">Source Code</a></center>
+ </div>
+ <div style="display:none">
+
+  <script>
+   document.getElementById("domain").focus();
+   if ($('pre').length > 0) {
+    document.getElementById("form").style.marginTop = "0";
+   } else {
+    document.getElementById("form").style.marginTop = "25%";
+   }
+  </script>
+
+ </div>
+ <br />
+</body>
 </html>
