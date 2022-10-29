@@ -42,12 +42,24 @@ app.get("/whois/:query", async (req, res, next) => {
   }
 });
 
+app.get('/api/whois/:query', async (req, res, next) => {
+let { query } = req.params;
+res.type("text/plain");
+try {
+    let result = await whois(query);
+    res.send(result);
+  } catch (e) {
+    res.status(500).send("Error: "+e.message);
+    console.log(e);
+  }
+})
+
 app.use((req, res, next) =>
   res.status(404).send(`<html>
 <head><title>404 Not Found</title></head>
 <body>
 <center><h1>404 Not Found</h1></center>
-<hr><center>nginx/1.18.0 (Ubuntu)</center>
+<hr><center>Express/${require("express/package").version} (${require("os").hostname()})</center>
 </body>
 </html>`)
 );
