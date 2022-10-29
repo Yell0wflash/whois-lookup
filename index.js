@@ -34,7 +34,7 @@ app.get("/", async (req, res) => {
 app.get("/whois/:query", async (req, res, next) => {
   let { query } = req.params;
   try {
-    let result = await whois(query);
+    let result = (await whois(query)).trim();
     res.render("result", { query, result });
   } catch (e) {
     res.render("result", { query, result: "Error : " + e.message });
@@ -47,7 +47,7 @@ let { query } = req.params;
 res.type("text/plain");
 try {
     let result = await whois(query);
-    res.send(result);
+    res.send(result.trim());
   } catch (e) {
     res.status(500).send("Error: "+e.message);
     console.log(e);
