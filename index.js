@@ -21,6 +21,7 @@ app.use(log("dev"));
 app.use(express.static(ROOT));
 app.set("view engine", "ejs");
 app.set("views", VIEW_ROOT);
+let cache = {}
 
 app.use((req, res, next) => {
   res.locals.hostname = req.hostname;
@@ -34,7 +35,9 @@ app.get("/", async (req, res) => {
 app.get("/whois/:query", async (req, res, next) => {
   let { query } = req.params;
   try {
+    if (cache[query]) return res.render("result", { query, result: cache[query] });
     let result = (await whois(query)).trim();
+    cache[query] = result;
     res.render("result", { query, result });
   } catch (e) {
     res.render("result", { query, result: "Error : " + e.message });
@@ -46,7 +49,9 @@ app.get('/api/whois/:query', async (req, res, next) => {
 let { query } = req.params;
 res.type("text/plain");
 try {
+    if (cache[query]) return res.send(cache[query].trim());
     let result = await whois(query);
+    cache[query] = result;
     res.send(result.trim());
   } catch (e) {
     res.status(500).send("Error: "+e.message);
@@ -54,15 +59,9 @@ try {
   }
 })
 
-app.use((req, res, next) =>
-  res.status(404).send(`<html>
-<head><title>404 Not Found</title></head>
-<body>
-<center><h1>404 Not Found</h1></center>
-<hr><center>Express/${require("express/package").version} (${require("os").hostname()})</center>
-</body>
-</html>`)
-);
+app.use((req, res, next) => {
+  res.sendStatus(404);
+});
 
 const listener = app.listen(PORT);
 
