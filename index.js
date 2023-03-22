@@ -45,7 +45,7 @@ let { query } = req.params;
 res.type("text/plain");
 try {
   //  if (cache[query]) return res.send(cache[query].trim());
-    let result = await whois(query);
+    let result = await whois(query, { follow: 0 });
   //  cache[query] = result;
     res.send(result.trim());
   } catch (e) {
