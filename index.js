@@ -31,7 +31,7 @@ app.get("/whois/:query", async (req, res, next) => {
   let { query } = req.params;
   try {
   //  if (cache[query]) return res.render("result", { query, result: cache[query] });
-    let result = (await whois(query)).trim();
+    let result = (await whois(query, { follow: 0 })).trim();
   //  cache[query] = result;
     res.render("result", { query, result });
   } catch (e) {
