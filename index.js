@@ -9,12 +9,7 @@ const ROOT = path.join(__dirname, "public");
 const VIEW_ROOT = path.join(__dirname, "pages");
 // const path = require("path");
 require("dotenv").config();
-const PORT =
-  process.env.PORT ||
-  String(Math.floor(Math.random() * 9)) +
-    String(Math.floor(Math.random() * 9)) +
-    String(Math.floor(Math.random() * 9)) +
-    String(Math.floor(Math.random() * 9));
+const PORT = process.env.PORT || 8080;
 app.use(bodyParser());
 app.set("json spaces", 2);
 app.use(log("dev"));
@@ -35,9 +30,9 @@ app.get("/", async (req, res) => {
 app.get("/whois/:query", async (req, res, next) => {
   let { query } = req.params;
   try {
-    if (cache[query]) return res.render("result", { query, result: cache[query] });
+  //  if (cache[query]) return res.render("result", { query, result: cache[query] });
     let result = (await whois(query)).trim();
-    cache[query] = result;
+  //  cache[query] = result;
     res.render("result", { query, result });
   } catch (e) {
     res.render("result", { query, result: "Error : " + e.message });
@@ -49,9 +44,9 @@ app.get('/api/whois/:query', async (req, res, next) => {
 let { query } = req.params;
 res.type("text/plain");
 try {
-    if (cache[query]) return res.send(cache[query].trim());
+  //  if (cache[query]) return res.send(cache[query].trim());
     let result = await whois(query);
-    cache[query] = result;
+  //  cache[query] = result;
     res.send(result.trim());
   } catch (e) {
     res.status(500).send("Error: "+e.message);
