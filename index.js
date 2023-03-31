@@ -31,7 +31,7 @@ app.get("/whois/:query", async (req, res, next) => {
   let { query } = req.params;
   try {
   //  if (cache[query]) return res.render("result", { query, result: cache[query] });
-    let result = (await whois(query, { follow: 0 })).trim();
+    let result = (await whois(query, { follow: query.endsWith(".tech") ? 0 : 1 })).trim();
   //  cache[query] = result;
     res.render("result", { query, result });
   } catch (e) {
@@ -45,7 +45,7 @@ let { query } = req.params;
 res.type("text/plain");
 try {
   //  if (cache[query]) return res.send(cache[query].trim());
-    let result = await whois(query, { follow: 0 });
+    let result = await whois(query, { follow: query.endsWith(".tech") ? 0 : 1 });
   //  cache[query] = result;
     res.send(result.trim());
   } catch (e) {
