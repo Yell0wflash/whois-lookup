@@ -7,7 +7,6 @@ var bodyParser = require("body-parser");
 const log = require("morgan");
 const ROOT = path.join(__dirname, "public");
 const VIEW_ROOT = path.join(__dirname, "pages");
-// const path = require("path");
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 app.use(bodyParser());
@@ -16,7 +15,6 @@ app.use(log("dev"));
 app.use(express.static(ROOT));
 app.set("view engine", "ejs");
 app.set("views", VIEW_ROOT);
-let cache = {}
 
 app.use((req, res, next) => {
   res.locals.hostname = req.hostname;
