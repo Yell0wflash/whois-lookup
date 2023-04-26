@@ -25,11 +25,12 @@ app.get("/", async (req, res) => {
   res.render("index");
 });
 
-app.get("/whois/:query", async (req, res, next) => {
-  let { query } = req.params;
+app.get(["/whois/:query", "/whois"], async (req, res, next) => {
+  let { query } = req.params || req.query;
+  if (!query) return res.render("result", { query, result: "Error: Bad Request" });
   try {
   //  if (cache[query]) return res.render("result", { query, result: cache[query] });
-    let result = (await whois(query, { follow: query.endsWith(".tech") ? 0 : 1 })).trim();
+    let result = (await whois(query, { follow: 0 })).trim();
   //  cache[query] = result;
     res.render("result", { query, result });
   } catch (e) {
@@ -38,12 +39,13 @@ app.get("/whois/:query", async (req, res, next) => {
   }
 });
 
-app.get('/api/whois/:query', async (req, res, next) => {
-let { query } = req.params;
+app.get(['/api/whois/:query', '/api/whois'], async (req, res, next) => {
+let { query } = req.params || req.query;
+if (!query) return res.status(400).send('400: Bad Request');
 res.type("text/plain");
 try {
   //  if (cache[query]) return res.send(cache[query].trim());
-    let result = await whois(query, { follow: query.endsWith(".tech") ? 0 : 1 });
+    let result = await whois(query, { follow: 0 });
   //  cache[query] = result;
     res.send(result.trim());
   } catch (e) {
