@@ -9,7 +9,7 @@
 ## installation
 
 ```
-git clone https://github.com/caliphdev/whois-lookup
+git clone https://github.com/Yell0wflash/whois-lookup
 cd whois-lookup
 npm install
 node index.js
